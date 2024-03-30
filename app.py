@@ -36,7 +36,7 @@ def save_diary():
     today = datetime.now()
     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
     filename = f'file-{mytime}.{extension}'
-    save_to = f'static/{filename}'
+    save_to = f'static/uploads/images/{filename}'
     file.save(save_to)
 
     doc = {

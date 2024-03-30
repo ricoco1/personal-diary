@@ -18,7 +18,7 @@ $(document).ready(function () {
           let temp_html = `
         <div class="col-4">
             <div class="card">
-                <img src="../static/${file}"
+                <img src="../static/uploads/images/${file}"
                     class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">${title}</h5>
