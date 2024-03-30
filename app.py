@@ -40,19 +40,23 @@ def save_diary():
     save_to = f'static/uploads/images/{filename}'
     file.save(save_to)
 
-    profile = request.files['profile_give']
-    extension = profile.filename.split('.')[-1]
-    profilename = f'file-{mytime}.{extension}'
-    save_profile = f'static/uploads/profile/{profilename}'
-    profile.save(save_profile)
+    profile = request.files.get('profile_give')
+    if profile:  
+        extension = profile.filename.split('.')[-1]
+        profilename = f'file-{mytime}.{extension}'
+        save_profile = f'static/uploads/profile/{profilename}'
+        profile.save(save_profile)
+    else: 
+        profilename = 'default_profile.jpg'
 
     doc = {
         'file': filename,
         'profile': profilename,
-        'title':title_receive,
-        'content':content_receive
+        'title': title_receive,
+        'content': content_receive
     }
     db.diary.insert_one(doc)
+
 
     return jsonify({'msg':'Upload complete!'})
 if __name__ == '__main__':
