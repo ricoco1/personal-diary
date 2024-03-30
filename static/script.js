@@ -14,19 +14,20 @@ $(document).ready(function () {
         for (let i = 0; i < articles.length; i++) {
           let title = articles[i]["title"];
           let content = articles[i]["content"];
+          let file = articles[i]['file'] || 'default-image.jpg';
           let temp_html = `
-            <div class="col-4">
-              <div class="card" style="margin-bottom: 10px;">
-              <img src="../static/diarylogo.png"
-              class="card-img-top" alt="...">
+        <div class="col-4">
+            <div class="card">
+                <img src="../static/${file}"
+                    class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h5 class="card-title">${title}</h5>
-                  <p class="card-text">${content}</p>
-                  <h6 class="card-subtitle mb-2 text-muted">2022.02.14</h6>
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text">${content}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                 </div>
-              </div>
             </div>
-          `;
+        </div>
+                    `;
           $("#cards-box").append(temp_html);
         }
       },

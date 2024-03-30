@@ -32,13 +32,15 @@ def save_diary():
     content_receive = request.form["content_give"]
 
     file = request.files['file_give']
-    save_to = 'static/myimage.jpg'
+    extension = file.filename.split('.')[-1]
+    today = datetime.now()
+    mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+    filename = f'file-{mytime}.{extension}'
+    save_to = f'static/{filename}'
     file.save(save_to)
-    # file = request.files['file_give']
-    # save_to = 'static/images/myimage.jpg'
-    # file.save(save_to)
 
     doc = {
+        'file': filename,
         'title':title_receive,
         'content':content_receive
     }
