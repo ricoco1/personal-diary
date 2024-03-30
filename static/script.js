@@ -48,18 +48,18 @@ $(document).ready(function () {
     }
     if (!title) {
       Swal.fire({
-          title: 'Error',
+          title: 'Kesalahan',
           text: 'Judul tidak boleh kosong',
-          icon: 'error',
+          icon: 'warning',
           confirmButtonText: 'OK'
       });
       return;
     }
     if (!content) {
       Swal.fire({
-          title: 'Error',
+          title: 'Kesalahan',
           text: 'Deskripsi tidak boleh kosong',
-          icon: 'error',
+          icon: 'warning',
           confirmButtonText: 'OK'
       });
       return;
@@ -81,7 +81,7 @@ $(document).ready(function () {
                 if (result.isConfirmed) {
                     window.location.reload();
                 }
-            });
+        });
       },
     });
   }
