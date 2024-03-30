@@ -16,49 +16,21 @@ $(document).ready(function () {
           let content = articles[i]["content"];
           let file = articles[i]['file'];
           let profile = articles[i]['profile'];
+          let profileImage;
+          if (profile) {
+             profileImage = `../static/uploads/profile/${profile}`;
+          } else {
+             profileImage = '../static/images/default_profile.jpg';
+          }
+
           let temp_html = `
         <div class="col-4">
             <div class="card" style="margin-bottom: 10px;">
                 <img src="../static/uploads/images/${file}"
                     class="card-img-top" alt="image">
-                
                 <div class="card-body">
-                    <img src="../static/uploads/profile/${profile}"
-                      class="card-img-top rounded-image" alt="profile picture">
-                    <h5 class="card-title">${title}</h5>
-                    <p class="card-text">${content}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                </div>
-            </div>
-        </div>
-                    `;
-          $("#cards-box").append(temp_html);
-        }
-      },
-    });
-  }
-    function listing() {
-    $.ajax({
-      type: "GET",
-      url: "/diary",
-      data: {},
-      success: function (response) {
-        let articles = response["articles"];
-        for (let i = 0; i < articles.length; i++) {
-          let title = articles[i]["title"];
-          let content = articles[i]["content"];
-          let file = articles[i]['file'];
-          let profile = articles[i]['profile'];
-          let temp_html = `
-        <div class="col-4">
-            <div class="card" style="margin-bottom: 10px;">
-                <img src="../static/uploads/images/${file}"
-                    class="card-img-top" alt="image">
-                
-                <div class="card-body">
-                    <img src="../static/uploads/profile/${profile}"
-                      class="card-img-top rounded-image" alt="profile picture">
-                    <h5 class="card-title">${title}</h5>
+                <img src="${profileImage}" class="card-img-top rounded-image" alt="profile picture">
+                <h5 class="card-title">${title}</h5>
                     <p class="card-text">${content}</p>
                     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
                 </div>
@@ -86,15 +58,6 @@ $(document).ready(function () {
       return;
   }
   
-  if (!profile) {
-      Swal.fire({
-          title: 'Kesalahan',
-          text: 'Silahkan pilih foto profile',
-          icon: 'warning',
-          confirmButtonText: 'OK'
-      });
-      return;
-  }
   if (title.length > 50) {
     Swal.fire({
         title: 'Kesalahan',
