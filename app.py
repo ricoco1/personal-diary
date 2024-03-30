@@ -49,11 +49,14 @@ def save_diary():
     else: 
         profilename = 'default_profile.jpg'
 
+    time = today.strftime('%Y.%m.%d.%H.%M.%S')
+
     doc = {
         'file': filename,
         'profile': profilename,
         'title': title_receive,
-        'content': content_receive
+        'content': content_receive,
+        'created_at': time
     }
     db.diary.insert_one(doc)
 
