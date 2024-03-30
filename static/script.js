@@ -14,13 +14,50 @@ $(document).ready(function () {
         for (let i = 0; i < articles.length; i++) {
           let title = articles[i]["title"];
           let content = articles[i]["content"];
-          let file = articles[i]['file'] || 'default-image.jpg';
+          let file = articles[i]['file'];
+          let profile = articles[i]['profile'];
           let temp_html = `
         <div class="col-4">
-            <div class="card">
+            <div class="card" style="margin-bottom: 10px;">
                 <img src="../static/uploads/images/${file}"
-                    class="card-img-top" alt="...">
+                    class="card-img-top" alt="image">
+                
                 <div class="card-body">
+                    <img src="../static/uploads/profile/${profile}"
+                      class="card-img-top rounded-image" alt="profile picture">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text">${content}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                </div>
+            </div>
+        </div>
+                    `;
+          $("#cards-box").append(temp_html);
+        }
+      },
+    });
+  }
+    function listing() {
+    $.ajax({
+      type: "GET",
+      url: "/diary",
+      data: {},
+      success: function (response) {
+        let articles = response["articles"];
+        for (let i = 0; i < articles.length; i++) {
+          let title = articles[i]["title"];
+          let content = articles[i]["content"];
+          let file = articles[i]['file'];
+          let profile = articles[i]['profile'];
+          let temp_html = `
+        <div class="col-4">
+            <div class="card" style="margin-bottom: 10px;">
+                <img src="../static/uploads/images/${file}"
+                    class="card-img-top" alt="image">
+                
+                <div class="card-body">
+                    <img src="../static/uploads/profile/${profile}"
+                      class="card-img-top rounded-image" alt="profile picture">
                     <h5 class="card-title">${title}</h5>
                     <p class="card-text">${content}</p>
                     <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
@@ -37,38 +74,58 @@ $(document).ready(function () {
   function posting() {
     let title = $("#image-title").val();
     let content = $("#image-description").val();
-    if (title.length > 50) {
-      Swal.fire({
-          title: 'Error',
-          text: 'Judul tidak boleh lebih dari 50 karakter',
-          icon: 'error',
-          confirmButtonText: 'OK'
-      });
-      return;
-    }
-    if (!title) {
-      Swal.fire({
-          title: 'Kesalahan',
-          text: 'Judul tidak boleh kosong',
-          icon: 'warning',
-          confirmButtonText: 'OK'
-      });
-      return;
-    }
-    if (!content) {
-      Swal.fire({
-          title: 'Kesalahan',
-          text: 'Deskripsi tidak boleh kosong',
-          icon: 'warning',
-          confirmButtonText: 'OK'
-      });
-      return;
-    }
     let file = $("#image").prop("files")[0];
-
+    let profile = $("#profile").prop("files")[0];
+    if (!file) {
+      Swal.fire({
+          title: 'Kesalahan',
+          text: 'Silahkan pilih gambar',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+      });
+      return;
+  }
+  
+  if (!profile) {
+      Swal.fire({
+          title: 'Kesalahan',
+          text: 'Silahkan pilih foto profile',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+      });
+      return;
+  }
+  if (title.length > 50) {
+    Swal.fire({
+        title: 'Kesalahan',
+        text: 'Judul gambar tidak boleh lebih dari 50 karakter',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    });
+    return;
+  }
+  if (!title) {
+    Swal.fire({
+        title: 'Kesalahan',
+        text: 'Judul tidak boleh kosong',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    });
+    return;
+  }
+  if (!content) {
+    Swal.fire({
+        title: 'Kesalahan',
+        text: 'Deskripsi tidak boleh kosong',
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    });
+    return;
+  }
     let form_data = new FormData();
 
     form_data.append("file_give", file);
+    form_data.append("profile_give", profile);
     form_data.append("title_give", title);
     form_data.append("content_give", content);
 

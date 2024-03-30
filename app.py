@@ -21,6 +21,11 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
+@app.route('/admin_diary', methods=['GET'])
+def admin_show_diary():
+    articles = list(db.diary.find({},{'_id':False}))
+    return jsonify({'articles': articles})
+
 @app.route('/diary', methods=['GET'])
 def show_diary():
     articles = list(db.diary.find({},{'_id':False}))
@@ -31,16 +36,24 @@ def save_diary():
     title_receive = request.form["title_give"]
     content_receive = request.form["content_give"]
 
-    file = request.files['file_give']
-    extension = file.filename.split('.')[-1]
     today = datetime.now()
     mytime = today.strftime('%Y-%m-%d-%H-%M-%S')
+
+    file = request.files['file_give']
+    extension = file.filename.split('.')[-1]
     filename = f'file-{mytime}.{extension}'
     save_to = f'static/uploads/images/{filename}'
     file.save(save_to)
 
+    profile = request.files['profile_give']
+    extension = profile.filename.split('.')[-1]
+    profilename = f'file-{mytime}.{extension}'
+    save_profile = f'static/uploads/profile/{profilename}'
+    profile.save(save_profile)
+
     doc = {
         'file': filename,
+        'profile': profilename,
         'title':title_receive,
         'content':content_receive
     }
