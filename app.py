@@ -21,11 +21,6 @@ app = Flask(__name__)
 def home():
     return render_template('index.html')
 
-@app.route('/admin_diary', methods=['GET'])
-def admin_show_diary():
-    articles = list(db.diary.find({},{'_id':False}))
-    return jsonify({'articles': articles})
-
 @app.route('/diary', methods=['GET'])
 def show_diary():
     articles = list(db.diary.find({},{'_id':False}))
