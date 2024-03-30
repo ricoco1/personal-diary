@@ -1,5 +1,7 @@
 $(document).ready(function () {
     listing();
+    bsCustomFileInput.init()
+
   });
 
   function listing() {
@@ -15,11 +17,8 @@ $(document).ready(function () {
           let temp_html = `
             <div class="col-4">
               <div class="card" style="margin-bottom: 10px;">
-                <img
-                  src="https://www.gardendesign.com/pictures/images/675x529Max/site_3/helianthus-yellow-flower-pixabay_11863.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
+              <img src="../static/diarylogo.png"
+              class="card-img-top" alt="...">
                 <div class="card-body">
                   <h5 class="card-title">${title}</h5>
                   <p class="card-text">${content}</p>
@@ -64,12 +63,23 @@ $(document).ready(function () {
       });
       return;
     }
+    let file = $("#image").prop("files")[0];
+
+    let form_data = new FormData();
+
+    form_data.append("file_give", file);
+    form_data.append("title_give", title);
+    form_data.append("content_give", content);
+
     let spinner = new Spinner().spin();
-     $('#loading').append(spinner.el);
+    $('#loading').append(spinner.el);
+
     $.ajax({
       type: "POST",
       url: "/diary",
-      data: { title_give: title, content_give: content },
+      data: form_data,
+      contentType: false,
+      processData: false,
       success: function (response) {
         spinner.stop();
             Swal.fire({

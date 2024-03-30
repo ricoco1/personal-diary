@@ -31,6 +31,13 @@ def save_diary():
     title_receive = request.form["title_give"]
     content_receive = request.form["content_give"]
 
+    file = request.files['file_give']
+    save_to = 'static/myimage.jpg'
+    file.save(save_to)
+    # file = request.files['file_give']
+    # save_to = 'static/images/myimage.jpg'
+    # file.save(save_to)
+
     doc = {
         'title':title_receive,
         'content':content_receive
