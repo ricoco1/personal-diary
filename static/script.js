@@ -4,6 +4,10 @@ $(document).ready(function () {
 
   });
 
+  function openImage(imageUrl) {
+    window.open(imageUrl, '_blank');
+}
+
   function listing() {
     $.ajax({
       type: "GET",
@@ -18,19 +22,21 @@ $(document).ready(function () {
           let time = articles[i]["created_at"] ? articles[i]["created_at"].slice(8, 10) + '.' + articles[i]["created_at"].slice(5, 7) + '.' + articles[i]["created_at"].slice(0, 4) : '???.??.??';
           let profile = articles[i]['profile'];
           let temp_html = `
-        <div class="col-4">
-            <div class="card" style="margin-bottom: 10px;">
-                <img src="../static/uploads/images/${file}"
-                    class="card-img-top" alt="image">
-                
-                <div class="card-body">
-                <img src="../static/uploads/profile/${profile || 'default_profile.jpg'}" class="card-img-top rounded-image" alt="profile picture">
-                <h5 class="card-title">${title}</h5>
-                    <p class="card-text">${content}</p>
-                    <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
-                </div>
-            </div>
-        </div>
+          <div class="col-12 col-md-6 col-lg-4">
+          <div class="card-group" style="margin-bottom: 10px;">
+              <div class="card">
+                  <img src="../static/uploads/images/${file}" class="card-img-top img-fluid" style="object-fit: cover; height: 400px;" alt="image" onclick="openImage('../static/uploads/images/${file}')">
+                  <div class="card-body">
+                      <img src="../static/uploads/profile/${profile || 'default_profile.jpg'}" class="card-img-top rounded-image img-fluid" style="object-fit: cover; width: 50px; height: 50px;" alt="profile picture">
+                      <h5 class="card-title">${title}</h5>
+                      <p class="card-text">${content}</p>
+                      <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      
                     `;
           $("#cards-box").append(temp_html);
         }

@@ -37,3 +37,35 @@
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+@media (max-width: 576px) {
+    .col-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+/* Atur tampilan untuk layar handphone */
+@media (max-width: 576px) {
+    .col-12 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+
+/* Atur tampilan untuk layar tablet */
+@media (min-width: 577px) and (max-width: 991px) {
+    .col-md-6 {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+/* Atur tampilan untuk layar desktop atau laptop */
+@media (min-width: 992px) {
+    .col-lg-4 {
+        flex: 0 0 33.33%;
+        max-width: 33.33%;
+    }
+}
+
+
+
