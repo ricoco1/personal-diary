@@ -4,7 +4,7 @@ $(document).ready(function () {
 
   });
 
-  function openImage(imageUrl) {
+  function openImageTab(imageUrl) {
     window.open(imageUrl, '_blank');
 }
 
@@ -23,18 +23,18 @@ $(document).ready(function () {
           let profile = articles[i]['profile'];
           let temp_html = `
           <div class="col-12 col-md-6 col-lg-4">
-          <div class="card-group" style="margin-bottom: 10px;">
-              <div class="card">
-                  <img src="../static/uploads/images/${file}" class="card-img-top img-fluid" style="object-fit: cover; height: 400px;" alt="image" onclick="openImage('../static/uploads/images/${file}')">
-                  <div class="card-body">
-                      <img src="../static/uploads/profile/${profile || 'default_profile.jpg'}" class="card-img-top rounded-image img-fluid" style="object-fit: cover; width: 50px; height: 50px;" alt="profile picture">
-                      <h5 class="card-title">${title}</h5>
-                      <p class="card-text">${content}</p>
-                      <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
-                  </div>
-              </div>
-          </div>
-      </div>
+        <div class="card-group" style="margin-bottom: 10px;">
+            <div class="card">
+                <img src="../static/uploads/images/${file}" class="card-img-top img-fluid" style="object-fit: cover; height: 400px;" alt="image" onclick="openImageTab('../static/uploads/images/${file}')">
+                <div class="card-body">
+                    <img src="../static/uploads/profile/${profile || 'default_profile.jpg'}" class="card-img-top rounded-image img-fluid" style="object-fit: cover; width: 50px; height: 50px;" alt="profile picture">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text">${content}</p>
+                    <h6 class="card-subtitle mb-2 text-muted">${time}</h6>
+                </div>
+            </div>
+        </div>
+    </div>
 
       
                     `;
